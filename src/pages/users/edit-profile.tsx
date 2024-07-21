@@ -56,7 +56,6 @@ function EditProfile() {
       const response = await deleteProfile();
 
       alert(response.message);
-      //   TODO: Delete cookies and redirect to login
     } catch (error) {
       alert(error);
     }

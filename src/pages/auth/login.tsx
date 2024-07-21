@@ -6,13 +6,12 @@ import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import Layout from "@/components/layout";
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 
 import { userLogin } from "@/utils/apis/auth";
 import { LoginSchema } from "@/utils/types/auth";
 
 function Login() {
-  // const [email, setEmail] = useState("");
-  // const [password, setPassword] = useState("");
   const [body, setBody] = useState<LoginSchema>({
     email: "",
     password: "",
@@ -21,10 +20,6 @@ function Login() {
 
   async function handleSubmit() {
     try {
-      // const body = {
-      //   email,
-      //   password,
-      // };
       const response = await userLogin(body);
 
       Cookies.set("token", response.payload.token);
@@ -36,26 +31,14 @@ function Login() {
 
   return (
     <Layout>
-      <div className="m-auto w-full max-w-md space-y-6">
-        <div className="text-center">
-          <h1 className="text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
-            Sign in to your account
-          </h1>
-          <p className="mt-2 text-muted-foreground">
-            Don't have an account?{" "}
-            <Link
-              to="/register"
-              className="font-medium text-primary hover:underline"
-            >
-              Sign up
-            </Link>
-          </p>
-        </div>
-        <div className="space-y-4">
-          <div>
-            <Label htmlFor="email" className="sr-only">
-              Email
-            </Label>
+      <div className="flex justify-center items-center min-h-screen">
+        <Card className="w-full max-w-md">
+          <CardHeader>
+            <CardTitle>Login</CardTitle>
+            <CardDescription>Sign in to your account</CardDescription>
+          </CardHeader>
+          <CardContent>
+            <Label>Email</Label>
             <Input
               id="email"
               type="email"
@@ -70,11 +53,8 @@ function Login() {
                 })
               }
             />
-          </div>
-          <div>
-            <Label htmlFor="password" className="sr-only">
-              Password
-            </Label>
+
+            <Label className="mt-4">Password</Label>
             <Input
               id="password"
               type="password"
@@ -89,15 +69,16 @@ function Login() {
                 })
               }
             />
-          </div>
-          <Button
-            type="submit"
-            className="w-full"
-            onClick={() => handleSubmit()}
-          >
-            Sign in
-          </Button>
-        </div>
+            <Button type="submit" className="w-full mt-4" onClick={() => handleSubmit()}>
+              Sign in
+            </Button>
+          </CardContent>
+          <CardFooter>
+            <p>
+              Dont't have an account? <Link to="/register">Register</Link>
+            </p>
+          </CardFooter>
+        </Card>
       </div>
     </Layout>
   );

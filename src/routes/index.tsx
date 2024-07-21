@@ -8,6 +8,7 @@ import EditProfile from "@/pages/users/edit-profile";
 import BookDetail from "@/pages/books/detail";
 import NotFound from "@/pages/not-found";
 import ProtectedRoute from "./protected-route";
+import Borrow from "@/pages/books/borrow";
 
 const Router = () => {
   const router = createBrowserRouter([
@@ -52,17 +53,22 @@ const Router = () => {
         {
           path: "/history-borrow",
           loader: () => "History Borrow | Library App",
-          element: <BookDetail />, // TODO: Change to history borrow
+          element: <BookDetail />,
         },
         {
           path: "/dashboard",
           loader: () => "Dashboard | Library App",
-          element: <BookDetail />, // TODO: Change to admin dashboard
+          element: <BookDetail />,
         },
         {
           path: "*",
           loader: () => "Not Found | Library App",
           element: <NotFound />,
+        },
+        {
+          path: "/borrow",
+          loader: () => "Borrow | Library App",
+          element: <Borrow />,
         },
       ],
     },

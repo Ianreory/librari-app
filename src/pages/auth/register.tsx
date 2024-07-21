@@ -1,47 +1,45 @@
-import React, { useState, useEffect } from "react";
-
 import Layout from "@/components/layout";
+import React from "react";
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
+import { Label } from "@/components/ui/label";
+import { Input } from "@/components/ui/input";
+import { Link } from "react-router-dom";
 
-const Register = () => {
-  const [count, setCount] = useState(0);
-
-  /*
-    componentDidMount, fungsi akan dijalankan sekali pada saat komponent telah di muat/render
-    
-    useEffect(() => {
-        ...
-    }, []);
-    */
-  //   useEffect(() => {
-  //     document.title = `Count: ${count}`;
-  //   }, []);
-
-  /*
-    componentDidMount & componentWillUpdate, fungsi akan dijalankan sekali pada saat komponent telah di muat/render, dan akan dijalankan kembali apabila nilai yang ada didalam dependency array berubah
-    
-    useEffect(() => {
-        ...
-    }, [state]);
-    */
-  useEffect(() => {
-    document.title = `Count: ${count}`;
-  }, [count]);
-
-  /**
-   * Side effect akan selalu jalan pada saat pengguna berada di halaman/page tersebut sampai komponen tersebut dihancurkan/dihapus dari DOM (componentDidMount + componentWillUpdate + componentWillUnmount)
-   *
-   * useEffect(() => {
-   *    ...
-   *    return () => {}
-   * })
-   */
-
+export default function Register() {
   return (
     <Layout>
-      <p>Count: {count}</p>
-      <button onClick={() => setCount(count + 1)}>Increment</button>
+      <div className="flex justify-center items-center min-h-screen">
+        <Card className="w-full max-w-md">
+          <CardHeader>
+            <CardTitle>Registrasi</CardTitle>
+            <CardDescription>Sign in to your account</CardDescription>
+          </CardHeader>
+          <CardContent>
+            <Label htmlFor="fullName">Full name</Label>
+            <Input id="fullName" />
+
+            <Label htmlFor="email">Email</Label>
+            <Input id="email" />
+
+            <Label htmlFor="password">Password</Label>
+            <Input id="password" />
+
+            <Label htmlFor="address">Address</Label>
+            <Input id="address" />
+
+            <Label htmlFor="phoneNumber">Phone number</Label>
+            <Input id="phoneNumber" />
+          </CardContent>
+          <CardFooter>
+            <p>
+              already have an account?{" "}
+              <Link to="/login" className="hover:decoration-gray-600">
+                Login
+              </Link>
+            </p>
+          </CardFooter>
+        </Card>
+      </div>
     </Layout>
   );
-};
-
-export default Register;
+}
