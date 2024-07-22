@@ -2,38 +2,23 @@ import { useEffect, useState } from "react";
 import { LocateIcon } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
-import BookCard from "@/components/book-card";
+
 import Layout from "@/components/layout";
 
-import { getBorrows } from "@/utils/apis/borrows";
 import { getProfile } from "@/utils/apis/users";
-import { IBorrow } from "@/utils/types/borrows";
 import { IUser } from "@/utils/types/users";
 
 function Profile() {
   const [data, setData] = useState<IUser>();
-  const [borrows, setBorrows] = useState<IBorrow[]>([]);
 
   useEffect(() => {
     fetchData();
-    fetchBorrows();
   }, []);
 
   async function fetchData() {
     try {
       const response = await getProfile();
-
       setData(response.payload);
-    } catch (error) {
-      alert(error);
-    }
-  }
-
-  async function fetchBorrows() {
-    try {
-      const response = await getBorrows();
-
-      setBorrows(response.payload.datas);
     } catch (error) {
       alert(error);
     }
@@ -63,7 +48,6 @@ function Profile() {
             </div>
           </div>
         </div>
-
       </div>
     </Layout>
   );

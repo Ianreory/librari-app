@@ -1,14 +1,14 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
-export default function Carausel() {
+export default function Carousel() {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [autoPlay, setAutoPlay] = useState(true);
   const autoPlayInterval = 3000; // Interval waktu auto-play dalam milidetik
 
   // Update carousel dan indikator
-  function updateCarousel(index) {
-    const items = document.querySelectorAll("[data-carousel-item]");
-    const indicators = document.querySelectorAll("[data-carousel-slide-to]");
+  function updateCarousel(index: number) {
+    const items = document.querySelectorAll("[data-carousel-item]") as NodeListOf<HTMLElement>;
+    const indicators = document.querySelectorAll("[data-carousel-slide-to]") as NodeListOf<HTMLButtonElement>;
 
     items.forEach((item, i) => {
       item.classList.toggle("hidden", i !== index);
@@ -22,10 +22,15 @@ export default function Carausel() {
   useEffect(() => {
     updateCarousel(currentIndex); // Memperbarui carousel saat currentIndex berubah
 
-    const items = document.querySelectorAll("[data-carousel-item]");
-    const indicators = document.querySelectorAll("[data-carousel-slide-to]");
-    const prevButton = document.querySelector("[data-carousel-prev]");
-    const nextButton = document.querySelector("[data-carousel-next]");
+    const items = document.querySelectorAll("[data-carousel-item]") as NodeListOf<HTMLElement>;
+    const indicators = document.querySelectorAll("[data-carousel-slide-to]") as NodeListOf<HTMLButtonElement>;
+    const prevButton = document.querySelector("[data-carousel-prev]") as HTMLButtonElement | null;
+    const nextButton = document.querySelector("[data-carousel-next]") as HTMLButtonElement | null;
+
+    if (!prevButton || !nextButton) {
+      console.error("Previous or Next button is missing.");
+      return;
+    }
 
     function handlePrevClick() {
       setCurrentIndex((prevIndex) => (prevIndex - 1 + items.length) % items.length);
@@ -35,7 +40,7 @@ export default function Carausel() {
       setCurrentIndex((prevIndex) => (prevIndex + 1) % items.length);
     }
 
-    function handleIndicatorClick(index) {
+    function handleIndicatorClick(index: number) {
       setCurrentIndex(index);
     }
 

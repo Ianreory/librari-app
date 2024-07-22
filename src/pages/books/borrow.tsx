@@ -7,8 +7,9 @@ import { IUser } from "@/utils/types/users";
 import BookCard from "@/components/book-card";
 
 export default function Borrow() {
-  const [data, setData] = useState<IUser>();
+  const [data, setData] = useState<IUser | undefined>();
   const [borrows, setBorrows] = useState<IBorrow[]>([]);
+
   useEffect(() => {
     fetchData();
     fetchBorrows();
@@ -17,7 +18,6 @@ export default function Borrow() {
   async function fetchData() {
     try {
       const response = await getProfile();
-
       setData(response.payload);
     } catch (error) {
       alert(error);
@@ -27,12 +27,12 @@ export default function Borrow() {
   async function fetchBorrows() {
     try {
       const response = await getBorrows();
-
       setBorrows(response.payload.datas);
     } catch (error) {
       alert(error);
     }
   }
+
   return (
     <Layout>
       <div className="mt-12 space-y-8">
@@ -40,7 +40,16 @@ export default function Borrow() {
           <h2 className="text-xl font-bold mb-4">Recently Borrowed Book</h2>
           <div className="grid grid-cols-2 md:grid-cols-4">
             {borrows.map((borrow) => (
-              <BookCard key={borrow.id} data={borrow.book} navigate="#" data-testid={`book-${borrow.id}`} />
+              <BookCard
+                key={borrow.id}
+                data={{
+                  id: borrow.book.id,
+                  title: borrow.book.title,
+                  cover_image: borrow.book.cover_image,
+                }}
+                navigate="#"
+                data-testid={`book-${borrow.id}`}
+              />
             ))}
           </div>
         </div>

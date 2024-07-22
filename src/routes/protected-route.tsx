@@ -6,14 +6,9 @@ const ProtectedRoute = () => {
   const token = Cookies.get("token");
 
   const authProtected = ["/login", "/register"];
-  const protectedByToken = [
-    "/profile",
-    "/profile/edit",
-    "history-borrow",
-    "/dashboard",
-  ];
-  const adminProtected = ["/dashboard"];
-  const userProtected = ["/history-borrow"];
+  const protectedByToken = ["/profile", "/profile/edit", "history-borrow", "/dashboard", "/borrow"];
+  // const adminProtected = ["/dashboard"];
+  // const userProtected = ["/history-borrow/borrow"];
 
   if (authProtected.includes(pathname)) {
     if (token) return <Navigate to="/" />;
