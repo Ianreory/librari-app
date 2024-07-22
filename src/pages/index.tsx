@@ -1,27 +1,8 @@
-// Functional Component = Stateless Component
-// export default function index() {
-//   function fetchData() {}
-
-//   return <div>{fetchData()}</div>;
-// }
-
-// Class Component = Stateful Component
-// export default class index extends Component {
-//   fetchData() {}
-
-//   render() {
-//     return <div>{this.fetchData()}</div>;
-//   }
-// }
-
 import { useEffect, useState } from "react";
-
 import BookCard from "@/components/book-card";
 import Layout from "@/components/layout";
-
 import { IBook } from "@/utils/types/books";
 import { getBooks } from "@/utils/apis/books";
-import { Button } from "@/components/ui/button";
 import Carausel from "@/components/ui/carausel";
 
 export default function Index() {
@@ -35,7 +16,6 @@ export default function Index() {
   async function fetchData() {
     try {
       const response = await getBooks();
-
       setData(response.payload.datas);
     } catch (error) {
       alert(error);
@@ -45,6 +25,14 @@ export default function Index() {
   return (
     <Layout>
       <Carausel />
+      <div className="flex justify-end mb-4">
+        <button
+          onClick={() => setReload((prev) => !prev)} // Mengubah nilai reload untuk memicu fetchData
+          className="bg-blue-500 text-white px-4 py-2 rounded"
+        >
+          Reload Data
+        </button>
+      </div>
       <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
         {data.map((book) => (
           <BookCard key={book.id} data={book} navigate={`/books/${book.id}`} data-testid={`book-${book.id}`} />
