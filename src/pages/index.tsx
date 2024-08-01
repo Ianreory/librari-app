@@ -7,7 +7,7 @@ import Carausel from "@/components/ui/carausel";
 
 export default function Index() {
   const [data, setData] = useState<IBook[]>([]);
-  const [reload, setReload] = useState(false);
+  const [reload] = useState(false);
 
   useEffect(() => {
     fetchData();
