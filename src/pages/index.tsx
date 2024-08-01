@@ -25,15 +25,7 @@ export default function Index() {
   return (
     <Layout>
       <Carausel />
-      <div className="flex justify-end mb-4">
-        <button
-          onClick={() => setReload((prev) => !prev)} // Mengubah nilai reload untuk memicu fetchData
-          className="bg-blue-500 text-white px-4 py-2 rounded"
-        >
-          Reload Data
-        </button>
-      </div>
-      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
+      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 pt-5">
         {data.map((book) => (
           <BookCard key={book.id} data={book} navigate={`/books/${book.id}`} data-testid={`book-${book.id}`} />
         ))}
